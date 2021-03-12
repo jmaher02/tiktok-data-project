@@ -1,3 +1,17 @@
+'''
+Obtain Unique TikTok Users
+
+In this attempt, we utilize getSuggestedUsersbyIDCrawler
+through several iterations to expand our list of users to compare.
+
+FINDINGS:  After the first generation of getSuggestedUsersbyIDCrawler,
+  even using the lowest users on the list will result in the same list
+  of users.
+
+UNIQUENESS: Only the initial ___ calls to getSuggestedUsersbyIDCrawler
+  seems produce unique users. After ___ calls, the list is unchanged
+'''
+
 from TikTokApi import TikTokApi
 from helper import *
 
@@ -10,7 +24,7 @@ results = 20
 #trending = api.trending(count=results, custom_verifyFp="verify_kllm1c0a_4c9EuLXw_u1ZP_4d6c_BLLo_wlpjV1ZiRnF4")
 
 user_list = api.getSuggestedUsersbyIDCrawler(count=results)
-print_all_data( user_list )
+print_user_data( user_list )
 print('Done')
 
 
