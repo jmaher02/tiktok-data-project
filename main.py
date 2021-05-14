@@ -12,16 +12,31 @@ UNIQUENESS: Only the initial ___ calls to getSuggestedUsersbyIDCrawler
   seems produce unique users. After ___ calls, the list is unchanged
 '''
 
+'''
+Steps in console for preparing virtual environment
+\ virtualenv env
+\ cd env/Scripts
+\ activate
+\ cd ..
+\ cd ..
+\ pip install TikTokApi
+\ python -m playwright install
+
+'''
+
 from TikTokApi import TikTokApi
 from helper import *
 
-# api = TikTokApi.get_instance()
+api = TikTokApi.get_instance()
 # If playwright doesn't work for you try to use selenium
-api = TikTokApi.get_instance(use_selenium=True)
+# api = TikTokApi.get_instance(use_selenium=True)
 results = 20
 # Since TikTok changed their API you need to use the custom_verifyFp option.
 # In your web browser you will need to go to TikTok, Log in and get the s_v_web_id value.
-#trending = api.trending(count=results, custom_verifyFp="verify_kllm1c0a_4c9EuLXw_u1ZP_4d6c_BLLo_wlpjV1ZiRnF4")
+#   -- Need new cookie at least every two hours
+verifyFp="verify_kmzi469d_KoCJiB2v_ISOW_47pr_9rDc_liZykxBl4BqL"
+
+trending = api.trending(count=results, custom_verifyFp=verifyFp)
 
 user_list = api.getSuggestedUsersbyIDCrawler(count=results)
 print_user_data( user_list )
@@ -79,8 +94,8 @@ for seed in new_seeds:
     print( seed )
 suggested = [api.getSuggestedUsersbyID(count=30, startingId=s_id) for s_id in new_seeds]
 
-#seed_ids = []  #Empty seeds, gather second gen ids
-#usernames = []
+seed_ids = []  #Empty seeds, gather second gen ids
+usernames = []
 for seed in suggested:
     for user in seed:
         #print(user['title'])
